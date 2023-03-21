@@ -9,12 +9,9 @@ const doc = load(readFileSync('rc-public-openapi.yml', 'utf8')) as OpenAPIV3.Doc
 const schemas: NamedSchema[] = [];
 
 const operations: Operation[] = [];
-Object.keys(doc.paths).forEach((p) => {
-  const pathObject = doc.paths[p] as {
-    [key: string]: OpenAPIV3.OperationObject;
-  };
-  Object.keys(pathObject).forEach((method) => {
-    operations.push(pathObject[method] as Operation);
+Object.values(doc.paths).forEach((pathObject) => {
+  Object.values(pathObject!).forEach((ops) => {
+    operations.push(ops as Operation);
   });
 });
 
@@ -51,8 +48,8 @@ const handleSpecialCases = () => {
 
 const gatherSchemas = () => {
   // schemas
-  for (const key of Object.keys(doc.components!.schemas!)) {
-    const temp = doc.components!.schemas![key] as NamedSchema;
+  for (const [key, val] of Object.entries(doc.components!.schemas!)) {
+    const temp = val as NamedSchema;
     temp.name = key;
     schemas.push(temp);
   }
@@ -73,8 +70,8 @@ const gatherQueryParams = () => {
       description: `Query parameters for operation ${operation.operationId}`,
       properties: Object.fromEntries(
         queryParameters.map((p) => {
-          let schemaObject = p as unknown as OpenAPIV3.SchemaObject;
-          schemaObject = Object.assign(schemaObject, p.schema, {
+          const schemaObject = p as unknown as OpenAPIV3.SchemaObject;
+          Object.assign(schemaObject, p.schema, {
             in: undefined,
             schema: undefined,
           });
@@ -126,9 +123,9 @@ const normalizeField = (field: Field): Field => {
 
 const normalizeSchema = (schema: NamedSchema): Model => {
   const properties = schema.properties || {};
-  const fields = Object.keys(properties)
-    .map((k) => ({
-      ...(properties[k] as unknown as Field),
+  const fields = Object.entries(properties)
+    .map(([k, v]) => ({
+      ...(v as unknown as Field),
       name: k,
       required: schema.required?.includes(k),
     }))
