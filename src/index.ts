@@ -1,3 +1,4 @@
 import { gatherModels } from './models';
 
-gatherModels();
+const models = gatherModels();
+console.log(JSON.stringify(models.slice(-3), null, 2));
