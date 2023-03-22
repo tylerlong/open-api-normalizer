@@ -1,10 +1,10 @@
 import { OpenAPIV3 } from 'openapi-types';
 
-import { operations } from '../raw-data';
-import { NamedSchema } from '../types';
-import { capitalizeFirstLetter } from '../utils';
+import { operations } from '../../raw-data';
+import { NamedSchema } from '../../types';
+import { capitalizeFirstLetter } from '../../utils';
 
-export const gatherForms = () => {
+export const readForms = () => {
   const schemas: NamedSchema[] = [];
   for (const operation of operations) {
     const requestBody = operation.requestBody as OpenAPIV3.RequestBodyObject;

@@ -1,6 +1,6 @@
 import { OpenAPIV3 } from 'openapi-types';
-import { doc } from '../raw-data';
-import { NamedSchema } from '../types';
+import { doc } from '../../raw-data';
+import { NamedSchema } from '../../types';
 
 export const handleSpecialCases = () => {
   //  infinite recursion
