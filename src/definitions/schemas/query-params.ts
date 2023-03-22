@@ -1,5 +1,3 @@
-import { OpenAPIV3 } from 'openapi-types';
-
 import { doc, operations } from '../../raw-data';
 import { NamedSchema } from '../../types';
 import { capitalizeFirstLetter } from '../../utils';
@@ -20,7 +18,7 @@ export const readQueryParams = () => {
       }
     }
     // no path or header parameters
-    queryParameters = operation.parameters.filter((p) => p.in !== 'path' && p.in !== 'header');
+    queryParameters = operation.parameters.filter((p) => p.in === 'query');
     if (queryParameters.length === 0) {
       continue;
     }
@@ -30,13 +28,13 @@ export const readQueryParams = () => {
       description: `Query parameters for operation ${operation.operationId}`,
       properties: Object.fromEntries(
         queryParameters.map((p) => {
-          const schemaObject = p as unknown as OpenAPIV3.SchemaObject;
-          Object.assign(schemaObject, p.schema, {
+          const name = p.name;
+          Object.assign(p, p.schema, {
             in: undefined,
             schema: undefined,
             name: undefined,
           });
-          return [p.name, schemaObject];
+          return [name, p];
         }),
       ),
     };
