@@ -1,7 +1,7 @@
 import { doc } from '../../raw-data';
 import { NamedSchema } from '../../types';
 
-export const readSchemas = () => {
+export const collectSchemas = () => {
   const schemas: NamedSchema[] = [];
   for (const [key, val] of Object.entries(doc.components!.schemas!)) {
     const temp = val as NamedSchema;

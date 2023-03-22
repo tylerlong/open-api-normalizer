@@ -2,7 +2,7 @@ import { doc, operations } from '../../raw-data';
 import { NamedSchema } from '../../types';
 import { capitalizeFirstLetter } from '../../utils';
 
-export const readQueryParams = () => {
+export const collectQueryParams = () => {
   const schemas: NamedSchema[] = [];
   for (const operation of operations) {
     if (!operation.parameters) {
