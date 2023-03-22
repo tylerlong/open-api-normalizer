@@ -17,7 +17,7 @@ export const readForms = () => {
       continue;
     }
     const schema = form.schema as NamedSchema;
-    if (!schema || !('properties' in schema)) {
+    if (!schema) {
       continue;
     }
     schema.name = capitalizeFirstLetter(operation.operationId!) + 'Request';
