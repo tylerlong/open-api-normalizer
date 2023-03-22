@@ -12,6 +12,12 @@ const shouldBeInline = (schema: NamedSchema): boolean => {
   return false;
 };
 
+/**
+ * The ideas is to replace all `string` and `string[]` `$ref` with the actual schema.
+ * Because in some programming languages, they are considered primitive types.
+ * @param schemas schemas to be processced
+ * @returns processed schemas
+ */
 export const deRef = (schemas: NamedSchema[]) => {
   for (const schema of schemas) {
     // replace pure $ref with the actual schema
