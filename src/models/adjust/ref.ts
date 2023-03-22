@@ -6,7 +6,7 @@ import { NamedSchema } from '../../types';
  * we don't like properties of type `object`, because they should be a new mode instead and we `$ref` them.
  * @param doc the OpenAPI document
  */
-export const ref = (schemas: NamedSchema[]) => {
+export const ref = (schemas: NamedSchema[]): NamedSchema[] => {
   for (const schema of schemas) {
     const properties = schema.properties;
     if (!properties) {

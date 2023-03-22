@@ -3588,15 +3588,10 @@
   {
     "type": "object",
     "required": [
-      "attachment",
+      "attachments",
       "to"
     ],
     "properties": {
-      "attachment": {
-        "type": "string",
-        "description": "File to upload",
-        "format": "binary"
-      },
       "faxResolution": {
         "type": "string",
         "description": "Fax only. Resolution of a fax message. 'High' for black and\nwhite image scanned at 200 dpi, 'Low' for black and white image scanned\nat 100 dpi\n",
@@ -3609,7 +3604,7 @@
         "type": "array",
         "description": "Recipient's phone number",
         "items": {
-          "type": "string"
+          "$ref": "#/components/schemas/FaxReceiver"
         }
       },
       "sendTime": {
@@ -3629,6 +3624,14 @@
       "coverPageText": {
         "type": "string",
         "description": "Cover page text, entered by a fax sender and printed\non a cover page. Maximum length is limited to 1024 symbols\n"
+      },
+      "attachments": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "format": "binary",
+          "description": "File to upload"
+        }
       }
     },
     "name": "CreateFaxMessageRequest",
@@ -32462,5 +32465,20 @@
       }
     },
     "name": "AggregationResponseOptionsTimersCallsDurationByType"
+  },
+  {
+    "name": "FaxReceiver",
+    "type": "object",
+    "description": "Fax receiver",
+    "properties": {
+      "phoneNumber": {
+        "type": "string",
+        "description": "Phone number in E.164 format"
+      },
+      "name": {
+        "type": "string",
+        "description": "Name of the receiver"
+      }
+    }
   }
 ]

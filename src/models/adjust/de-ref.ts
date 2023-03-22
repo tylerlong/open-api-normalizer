@@ -18,7 +18,7 @@ const shouldBeInline = (schema: NamedSchema): boolean => {
  * @param schemas schemas to be processced
  * @returns processed schemas
  */
-export const deRef = (schemas: NamedSchema[]) => {
+export const deRef = (schemas: NamedSchema[]): NamedSchema[] => {
   for (const schema of schemas) {
     // replace pure $ref with the actual schema
     if ('$ref' in schema) {
