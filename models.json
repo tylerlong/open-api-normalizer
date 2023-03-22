@@ -7421,22 +7421,10 @@
         "description": "Call session identifier, required for Telephony REST API"
       },
       "transferTarget": {
-        "type": "object",
-        "properties": {
-          "telephonySessionId": {
-            "type": "string",
-            "description": "Internal Identifier of Telephony Session, which belongs to transfer target in case of Warm Transfer"
-          }
-        }
+        "$ref": "#/components/schemas/CompanyCallLogRecordTransferTarget"
       },
       "transferee": {
-        "type": "object",
-        "properties": {
-          "telephonySessionId": {
-            "type": "string",
-            "description": "Internal Identifier of Telephony Session, which belongs to transferee in case of Warm Transfer"
-          }
-        }
+        "$ref": "#/components/schemas/CompanyCallLogRecordTransferee"
       },
       "partyId": {
         "type": "string",
@@ -7849,22 +7837,10 @@
         "description": "Call session identifier, required for Telephony REST API"
       },
       "transferTarget": {
-        "type": "object",
-        "properties": {
-          "telephonySessionId": {
-            "type": "string",
-            "description": "Internal Identifier of Telephony Session, which belongs to transfer target in case of Warm Transfer"
-          }
-        }
+        "$ref": "#/components/schemas/CallLogRecordLegInfoTransferTarget"
       },
       "transferee": {
-        "type": "object",
-        "properties": {
-          "telephonySessionId": {
-            "type": "string",
-            "description": "Internal Identifier of Telephony Session, which belongs to transferee in case of Warm Transfer"
-          }
-        }
+        "$ref": "#/components/schemas/CallLogRecordLegInfoTransferee"
       },
       "partyId": {
         "type": "string",
@@ -9726,62 +9702,12 @@
     "description": "The results of adding opt-outs and opt-ins",
     "properties": {
       "optIns": {
-        "type": "object",
         "description": "Contains successful and failed opt-ins",
-        "properties": {
-          "successful": {
-            "type": "array",
-            "description": "Recipients' phone numbers which opt-ins were successfully added for.",
-            "items": {
-              "type": "string"
-            },
-            "example": [
-              "+15551237799"
-            ]
-          },
-          "failed": {
-            "type": "array",
-            "description": "Recipients' phone numbers which opt-ins were failed to be added for. Plus, error messages",
-            "items": {
-              "$ref": "#/components/schemas/OptOutBulkAssignFailedEntry"
-            },
-            "example": [
-              {
-                "to": "+15551237798",
-                "errorMessage": "Unexpected issue on removing an opt-out from bulk-assign request"
-              }
-            ]
-          }
-        }
+        "$ref": "#/components/schemas/OptOutBulkAssignResponseOptIns"
       },
       "optOuts": {
-        "type": "object",
         "description": "Contains successful and failed opt-outs",
-        "properties": {
-          "successful": {
-            "type": "array",
-            "description": "Recipients' phone numbers which opt-outs were successfully added for.",
-            "items": {
-              "type": "string"
-            },
-            "example": [
-              "+15551237755"
-            ]
-          },
-          "failed": {
-            "type": "array",
-            "description": "Recipients' phone numbers which opt-outs were failed to be added for. Plus, error messages",
-            "items": {
-              "$ref": "#/components/schemas/OptOutBulkAssignFailedEntry"
-            },
-            "example": [
-              {
-                "to": "+15551237756",
-                "errorMessage": "Unexpected issue on creating an opt-out from bulk-assign request"
-              }
-            ]
-          }
-        }
+        "$ref": "#/components/schemas/OptOutBulkAssignResponseOptOuts"
       }
     },
     "name": "OptOutBulkAssignResponse"
@@ -16651,22 +16577,10 @@
         "description": "Call session identifier, required for Telephony REST API"
       },
       "transferTarget": {
-        "type": "object",
-        "properties": {
-          "telephonySessionId": {
-            "type": "string",
-            "description": "Internal Identifier of Telephony Session, which belongs to transfer target in case of Warm Transfer"
-          }
-        }
+        "$ref": "#/components/schemas/CallLogRecordTransferTarget"
       },
       "transferee": {
-        "type": "object",
-        "properties": {
-          "telephonySessionId": {
-            "type": "string",
-            "description": "Internal Identifier of Telephony Session, which belongs to transferee in case of Warm Transfer"
-          }
-        }
+        "$ref": "#/components/schemas/CallLogRecordTransferee"
       },
       "partyId": {
         "type": "string",
@@ -16911,22 +16825,10 @@
         "description": "Call session identifier, required for Telephony REST API"
       },
       "transferTarget": {
-        "type": "object",
-        "properties": {
-          "telephonySessionId": {
-            "type": "string",
-            "description": "Internal Identifier of Telephony Session, which belongs to transfer target in case of Warm Transfer"
-          }
-        }
+        "$ref": "#/components/schemas/UserCallLogRecordTransferTarget"
       },
       "transferee": {
-        "type": "object",
-        "properties": {
-          "telephonySessionId": {
-            "type": "string",
-            "description": "Internal Identifier of Telephony Session, which belongs to transferee in case of Warm Transfer"
-          }
-        }
+        "$ref": "#/components/schemas/UserCallLogRecordTransferee"
       },
       "partyId": {
         "type": "string",
@@ -25085,20 +24987,9 @@
         "$ref": "#/components/schemas/NotificationDeliveryMode"
       },
       "blacklistedData": {
-        "type": "object",
         "description": "Returned if a WebHook subscription is blacklisted",
         "readOnly": true,
-        "properties": {
-          "blacklistedAt": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Time of adding subscription to a black list in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)\nformat including timezone, for example *2016-03-10T18:07:52.534Z*\n"
-          },
-          "reason": {
-            "type": "string",
-            "description": "Reason of adding subscription to a black list"
-          }
-        }
+        "$ref": "#/components/schemas/SubscriptionInfoBlacklistedData"
       }
     },
     "name": "SubscriptionInfo"
@@ -25276,17 +25167,7 @@
         "type": "array",
         "description": "List of countries with the country data",
         "items": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "string",
-              "description": "Internal identifier of a country"
-            },
-            "name": {
-              "type": "string",
-              "description": "Official name of a country"
-            }
-          }
+          "$ref": "#/components/schemas/ContractedCountryListResponseRecords"
         }
       }
     },
@@ -28197,13 +28078,7 @@
       "assignees": {
         "type": "array",
         "items": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "string",
-              "description": "Assignee Id"
-            }
-          }
+          "$ref": "#/components/schemas/TMUpdateTaskRequestAssignees"
         }
       },
       "completenessCondition": {
@@ -28246,43 +28121,7 @@
         "description": "Task details. Max allowed length is 102400 characters (100kB)."
       },
       "recurrence": {
-        "type": "object",
-        "properties": {
-          "schedule": {
-            "type": "string",
-            "description": "Task recurrence settings.",
-            "default": "None",
-            "enum": [
-              "None",
-              "Daily",
-              "Weekdays",
-              "Weekly",
-              "Monthly",
-              "Yearly"
-            ]
-          },
-          "endingCondition": {
-            "type": "string",
-            "description": "Task ending condition.",
-            "enum": [
-              "None",
-              "Count",
-              "Date"
-            ]
-          },
-          "endingAfter": {
-            "maximum": 10,
-            "minimum": 1,
-            "type": "integer",
-            "format": "int32",
-            "description": "Count of iterations of periodic tasks."
-          },
-          "endingOn": {
-            "type": "string",
-            "description": "The end date of periodic task in UTC time zone.",
-            "format": "date-time"
-          }
-        }
+        "$ref": "#/components/schemas/TMUpdateTaskRequestRecurrence"
       },
       "attachments": {
         "type": "array",
@@ -28299,8 +28138,7 @@
       "records": {
         "type": "array",
         "items": {
-          "type": "object",
-          "properties": {}
+          "$ref": "#/components/schemas/TMTaskListRecords"
         }
       }
     },
@@ -28351,13 +28189,7 @@
         ]
       },
       "creator": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "Creator Id"
-          }
-        }
+        "$ref": "#/components/schemas/TMTaskInfoCreator"
       },
       "chatIds": {
         "type": "array",
@@ -28383,21 +28215,7 @@
         "type": "array",
         "description": "Task name/subject.",
         "items": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "string",
-              "description": "Assignee Id"
-            },
-            "status": {
-              "type": "string",
-              "description": "Task execution status by assignee",
-              "enum": [
-                "Pending",
-                "Completed"
-              ]
-            }
-          }
+          "$ref": "#/components/schemas/TMTaskInfoAssignees"
         }
       },
       "completenessCondition": {
@@ -28449,43 +28267,8 @@
         "description": "Task details."
       },
       "recurrence": {
-        "type": "object",
-        "properties": {
-          "schedule": {
-            "type": "string",
-            "description": "Task recurrence settings. None for non-periodic tasks.",
-            "enum": [
-              "None",
-              "Daily",
-              "Weekdays",
-              "Weekly",
-              "Monthly",
-              "Yearly"
-            ]
-          },
-          "endingCondition": {
-            "type": "string",
-            "description": "Task ending condition.",
-            "enum": [
-              "None",
-              "Count",
-              "Date"
-            ]
-          },
-          "endingAfter": {
-            "maximum": 10,
-            "minimum": 1,
-            "type": "integer",
-            "format": "int32",
-            "description": "Count of iterations of periodic tasks."
-          },
-          "endingOn": {
-            "type": "string",
-            "description": "End date of periodic task.",
-            "format": "date-time"
-          }
-        },
-        "description": "Task details."
+        "description": "Task details.",
+        "$ref": "#/components/schemas/TMTaskInfoRecurrence"
       },
       "attachments": {
         "type": "array",
@@ -28536,13 +28319,7 @@
       "assignees": {
         "type": "array",
         "items": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "string",
-              "description": "Assignee Id"
-            }
-          }
+          "$ref": "#/components/schemas/TMCompleteTaskRequestAssignees"
         }
       },
       "completenessPercentage": {
@@ -28693,13 +28470,7 @@
       "assignees": {
         "type": "array",
         "items": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "string",
-              "description": "Assignee Id"
-            }
-          }
+          "$ref": "#/components/schemas/TMCreateTaskRequestAssignees"
         }
       },
       "completenessCondition": {
@@ -28744,44 +28515,7 @@
         "description": "Task details. Max allowed length is 102400 characters (100kB)."
       },
       "recurrence": {
-        "type": "object",
-        "properties": {
-          "schedule": {
-            "type": "string",
-            "description": "Task recurrence settings.",
-            "default": "None",
-            "enum": [
-              "None",
-              "Daily",
-              "Weekdays",
-              "Weekly",
-              "Monthly",
-              "Yearly"
-            ]
-          },
-          "endingCondition": {
-            "type": "string",
-            "description": "Task ending condition.",
-            "default": "None",
-            "enum": [
-              "None",
-              "Count",
-              "Date"
-            ]
-          },
-          "endingAfter": {
-            "maximum": 10,
-            "minimum": 1,
-            "type": "integer",
-            "format": "int32",
-            "description": "Count of iterations of periodic tasks."
-          },
-          "endingOn": {
-            "type": "string",
-            "description": "The end date of periodic task in UTC time zone.",
-            "format": "date-time"
-          }
-        }
+        "$ref": "#/components/schemas/TMCreateTaskRequestRecurrence"
       },
       "attachments": {
         "type": "array",
@@ -29973,18 +29707,7 @@
         "type": "array",
         "description": "Identifier(s) of chat member(s). The maximum supported number of IDs is 15. User's own ID is optional. If `members` section is omitted then 'Personal' chat will be returned  ",
         "items": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "string",
-              "description": "Internal identifier of a person"
-            },
-            "email": {
-              "type": "string",
-              "format": "email",
-              "description": "Email of a person"
-            }
-          }
+          "$ref": "#/components/schemas/CreateConversationRequestMembers"
         }
       }
     },
@@ -30307,18 +30030,7 @@
         "type": "array",
         "description": "Identifier(s) of team members.",
         "items": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "string",
-              "description": "Internal identifier of a person"
-            },
-            "email": {
-              "type": "string",
-              "format": "email",
-              "description": "Email of a person"
-            }
-          }
+          "$ref": "#/components/schemas/TMCreateTeamRequestMembers"
         }
       }
     },
@@ -30418,13 +30130,7 @@
         "type": "array",
         "description": "Identifier(s) of chat members.",
         "items": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "string",
-              "description": "Internal identifier of a person"
-            }
-          }
+          "$ref": "#/components/schemas/TMRemoveTeamMembersRequestMembers"
         }
       }
     },
@@ -30440,19 +30146,8 @@
         "type": "array",
         "description": "Identifier(s) of chat member(s)",
         "items": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "string",
-              "description": "Internal identifier of a person"
-            },
-            "email": {
-              "type": "string",
-              "format": "email",
-              "description": "Email of a person"
-            }
-          },
-          "description": "Conversation is opened"
+          "description": "Conversation is opened",
+          "$ref": "#/components/schemas/TMAddTeamMembersRequestMembers"
         }
       }
     },
@@ -30793,163 +30488,78 @@
         "required": [
           "aggregationType"
         ],
-        "type": "object",
-        "properties": {
-          "aggregationType": {
-            "$ref": "#/components/schemas/AggregationType"
-          },
-          "aggregationInterval": {
-            "$ref": "#/components/schemas/AggregationInterval"
-          }
-        },
-        "description": "Aggregation of all calls count"
+        "description": "Aggregation of all calls count",
+        "$ref": "#/components/schemas/AggregationResponseOptionsCountersAllCalls"
       },
       "callsByDirection": {
         "required": [
           "aggregationType"
         ],
-        "type": "object",
-        "properties": {
-          "aggregationType": {
-            "$ref": "#/components/schemas/AggregationType"
-          },
-          "aggregationInterval": {
-            "$ref": "#/components/schemas/AggregationInterval"
-          }
-        },
-        "description": "Aggregation of calls count by direction (Inbound, Outbound)"
+        "description": "Aggregation of calls count by direction (Inbound, Outbound)",
+        "$ref": "#/components/schemas/AggregationResponseOptionsCountersCallsByDirection"
       },
       "callsByOrigin": {
         "required": [
           "aggregationType"
         ],
-        "type": "object",
-        "properties": {
-          "aggregationType": {
-            "$ref": "#/components/schemas/AggregationType"
-          },
-          "aggregationInterval": {
-            "$ref": "#/components/schemas/AggregationInterval"
-          }
-        },
-        "description": "Aggregation of calls count by origin (Internal, External)"
+        "description": "Aggregation of calls count by origin (Internal, External)",
+        "$ref": "#/components/schemas/AggregationResponseOptionsCountersCallsByOrigin"
       },
       "callsByResponse": {
         "required": [
           "aggregationType"
         ],
-        "type": "object",
-        "properties": {
-          "aggregationType": {
-            "$ref": "#/components/schemas/AggregationType"
-          },
-          "aggregationInterval": {
-            "$ref": "#/components/schemas/AggregationInterval"
-          }
-        },
-        "description": "Aggregation of calls count by response (Answered, NotAnswered, Connected, NotConnected)"
+        "description": "Aggregation of calls count by response (Answered, NotAnswered, Connected, NotConnected)",
+        "$ref": "#/components/schemas/AggregationResponseOptionsCountersCallsByResponse"
       },
       "callsSegments": {
         "required": [
           "aggregationType"
         ],
-        "type": "object",
-        "properties": {
-          "aggregationType": {
-            "$ref": "#/components/schemas/AggregationType"
-          },
-          "aggregationInterval": {
-            "$ref": "#/components/schemas/AggregationInterval"
-          }
-        },
-        "description": "Aggregation of calls count by segments (Ringing, LiveTalk, Hold, Park, Transfer, IvrPrompt, Voicemail, VmGreeting, Setup)"
+        "description": "Aggregation of calls count by segments (Ringing, LiveTalk, Hold, Park, Transfer, IvrPrompt, Voicemail, VmGreeting, Setup)",
+        "$ref": "#/components/schemas/AggregationResponseOptionsCountersCallsSegments"
       },
       "callsByResult": {
         "required": [
           "aggregationType"
         ],
-        "type": "object",
-        "properties": {
-          "aggregationType": {
-            "$ref": "#/components/schemas/AggregationType"
-          },
-          "aggregationInterval": {
-            "$ref": "#/components/schemas/AggregationInterval"
-          }
-        },
-        "description": "Aggregation of calls count by result (Completed, Abandoned, Voicemail, Unknown, Missed, Accepted)"
+        "description": "Aggregation of calls count by result (Completed, Abandoned, Voicemail, Unknown, Missed, Accepted)",
+        "$ref": "#/components/schemas/AggregationResponseOptionsCountersCallsByResult"
       },
       "callsByCompanyHours": {
         "required": [
           "aggregationType"
         ],
-        "type": "object",
-        "properties": {
-          "aggregationType": {
-            "$ref": "#/components/schemas/AggregationType"
-          },
-          "aggregationInterval": {
-            "$ref": "#/components/schemas/AggregationInterval"
-          }
-        },
-        "description": "Aggregation of calls count by company hours (BusinessHours, AfterHours)"
+        "description": "Aggregation of calls count by company hours (BusinessHours, AfterHours)",
+        "$ref": "#/components/schemas/AggregationResponseOptionsCountersCallsByCompanyHours"
       },
       "callsByQueueSla": {
         "required": [
           "aggregationType"
         ],
-        "type": "object",
-        "properties": {
-          "aggregationType": {
-            "$ref": "#/components/schemas/AggregationType"
-          },
-          "aggregationInterval": {
-            "$ref": "#/components/schemas/AggregationInterval"
-          }
-        },
-        "description": "Aggregation of calls count by queue SLA (InSLA, OutSLA). This counter is only applicable to Queues grouping"
+        "description": "Aggregation of calls count by queue SLA (InSLA, OutSLA). This counter is only applicable to Queues grouping",
+        "$ref": "#/components/schemas/AggregationResponseOptionsCountersCallsByQueueSla"
       },
       "callsByActions": {
         "required": [
           "aggregationType"
         ],
-        "type": "object",
-        "properties": {
-          "aggregationType": {
-            "$ref": "#/components/schemas/AggregationType"
-          },
-          "aggregationInterval": {
-            "$ref": "#/components/schemas/AggregationInterval"
-          }
-        },
-        "description": "Aggregation of calls count by action (HoldOff, HoldOn, ParkOn, ParkOff, BlindTransfer, WarmTransfer, DTMFTransfer)"
+        "description": "Aggregation of calls count by action (HoldOff, HoldOn, ParkOn, ParkOff, BlindTransfer, WarmTransfer, DTMFTransfer)",
+        "$ref": "#/components/schemas/AggregationResponseOptionsCountersCallsByActions"
       },
       "callsByType": {
         "required": [
           "aggregationType"
         ],
-        "type": "object",
-        "properties": {
-          "aggregationType": {
-            "$ref": "#/components/schemas/AggregationType"
-          },
-          "aggregationInterval": {
-            "$ref": "#/components/schemas/AggregationInterval"
-          }
-        },
-        "description": "Aggregation of calls count by type (Direct, FromQueue, ParkRetrieval, Transferred, Outbound)"
+        "description": "Aggregation of calls count by type (Direct, FromQueue, ParkRetrieval, Transferred, Outbound)",
+        "$ref": "#/components/schemas/AggregationResponseOptionsCountersCallsByType"
       },
       "queueOpportunities": {
         "required": [
           "aggregationType"
         ],
-        "type": "object",
-        "properties": {
-          "aggregationType": {
-            "$ref": "#/components/schemas/QueueOpportunitiesAggregationType"
-          }
-        },
-        "description": "Aggregation of calls count by the total number of times a Queue call was presented to the user. It is limited to `groupBy` Users and `groupByMembers` (Department, Queue, Site, UserGroup) grouping. Only the listed below options for call filters are applicable to `queueOpportunities` and provide meaningful results: `queues` (selected queue extension ids), `callResults` (Missed, Abandoned), `callResponses` (Answered, NotAnswered), `origins` (Internal, External)"
+        "description": "Aggregation of calls count by the total number of times a Queue call was presented to the user. It is limited to `groupBy` Users and `groupByMembers` (Department, Queue, Site, UserGroup) grouping. Only the listed below options for call filters are applicable to `queueOpportunities` and provide meaningful results: `queues` (selected queue extension ids), `callResults` (Missed, Abandoned), `callResponses` (Answered, NotAnswered), `origins` (Internal, External)",
+        "$ref": "#/components/schemas/AggregationResponseOptionsCountersQueueOpportunities"
       }
     },
     "description": "The formula is defined by `aggregationType` and `aggregationInterval` for every counter individually.\nIf `aggregationType` is `Sum` or `Percent`, `aggregationInterval` is not supported.\nIf `aggregationType` is `Min`, `Max` or `Average`, `aggregationInterval` is required",
@@ -30962,136 +30572,64 @@
         "required": [
           "aggregationType"
         ],
-        "type": "object",
-        "properties": {
-          "aggregationType": {
-            "$ref": "#/components/schemas/AggregationType"
-          },
-          "aggregationInterval": {
-            "$ref": "#/components/schemas/AggregationInterval"
-          }
-        },
-        "description": "Aggregation of all calls duration"
+        "description": "Aggregation of all calls duration",
+        "$ref": "#/components/schemas/AggregationResponseOptionsTimersAllCallsDuration"
       },
       "callsDurationByDirection": {
         "required": [
           "aggregationType"
         ],
-        "type": "object",
-        "properties": {
-          "aggregationType": {
-            "$ref": "#/components/schemas/AggregationType"
-          },
-          "aggregationInterval": {
-            "$ref": "#/components/schemas/AggregationInterval"
-          }
-        },
-        "description": "Aggregation of calls duration by direction (Inbound, Outbound)"
+        "description": "Aggregation of calls duration by direction (Inbound, Outbound)",
+        "$ref": "#/components/schemas/AggregationResponseOptionsTimersCallsDurationByDirection"
       },
       "callsDurationByOrigin": {
         "required": [
           "aggregationType"
         ],
-        "type": "object",
-        "properties": {
-          "aggregationType": {
-            "$ref": "#/components/schemas/AggregationType"
-          },
-          "aggregationInterval": {
-            "$ref": "#/components/schemas/AggregationInterval"
-          }
-        },
-        "description": "Aggregation of calls duration by origin (Internal, External)"
+        "description": "Aggregation of calls duration by origin (Internal, External)",
+        "$ref": "#/components/schemas/AggregationResponseOptionsTimersCallsDurationByOrigin"
       },
       "callsDurationByResponse": {
         "required": [
           "aggregationType"
         ],
-        "type": "object",
-        "properties": {
-          "aggregationType": {
-            "$ref": "#/components/schemas/AggregationType"
-          },
-          "aggregationInterval": {
-            "$ref": "#/components/schemas/AggregationInterval"
-          }
-        },
-        "description": "Aggregation of calls duration by response (Answered, NotAnswered, Connected, NotConnected)"
+        "description": "Aggregation of calls duration by response (Answered, NotAnswered, Connected, NotConnected)",
+        "$ref": "#/components/schemas/AggregationResponseOptionsTimersCallsDurationByResponse"
       },
       "callsSegmentsDuration": {
         "required": [
           "aggregationType"
         ],
-        "type": "object",
-        "properties": {
-          "aggregationType": {
-            "$ref": "#/components/schemas/AggregationType"
-          },
-          "aggregationInterval": {
-            "$ref": "#/components/schemas/AggregationInterval"
-          }
-        },
-        "description": "Aggregation of calls duration by segments (Ringing, LiveTalk, Hold, Park, Transfer, IvrPrompt, Voicemail, VmGreeting, Setup)"
+        "description": "Aggregation of calls duration by segments (Ringing, LiveTalk, Hold, Park, Transfer, IvrPrompt, Voicemail, VmGreeting, Setup)",
+        "$ref": "#/components/schemas/AggregationResponseOptionsTimersCallsSegmentsDuration"
       },
       "callsDurationByResult": {
         "required": [
           "aggregationType"
         ],
-        "type": "object",
-        "properties": {
-          "aggregationType": {
-            "$ref": "#/components/schemas/AggregationType"
-          },
-          "aggregationInterval": {
-            "$ref": "#/components/schemas/AggregationInterval"
-          }
-        },
-        "description": "Aggregation of calls duration by result (Completed, Abandoned, Voicemail, Unknown, Missed, Accepted)"
+        "description": "Aggregation of calls duration by result (Completed, Abandoned, Voicemail, Unknown, Missed, Accepted)",
+        "$ref": "#/components/schemas/AggregationResponseOptionsTimersCallsDurationByResult"
       },
       "callsDurationByCompanyHours": {
         "required": [
           "aggregationType"
         ],
-        "type": "object",
-        "properties": {
-          "aggregationType": {
-            "$ref": "#/components/schemas/AggregationType"
-          },
-          "aggregationInterval": {
-            "$ref": "#/components/schemas/AggregationInterval"
-          }
-        },
-        "description": "Aggregation of calls duration by company hours (BusinessHours, AfterHours)"
+        "description": "Aggregation of calls duration by company hours (BusinessHours, AfterHours)",
+        "$ref": "#/components/schemas/AggregationResponseOptionsTimersCallsDurationByCompanyHours"
       },
       "callsDurationByQueueSla": {
         "required": [
           "aggregationType"
         ],
-        "type": "object",
-        "properties": {
-          "aggregationType": {
-            "$ref": "#/components/schemas/AggregationType"
-          },
-          "aggregationInterval": {
-            "$ref": "#/components/schemas/AggregationInterval"
-          }
-        },
-        "description": "Aggregation of calls duration by queue SLA (InSLA, OutSLA). This timer is only applicable to Queues grouping"
+        "description": "Aggregation of calls duration by queue SLA (InSLA, OutSLA). This timer is only applicable to Queues grouping",
+        "$ref": "#/components/schemas/AggregationResponseOptionsTimersCallsDurationByQueueSla"
       },
       "callsDurationByType": {
         "required": [
           "aggregationType"
         ],
-        "type": "object",
-        "properties": {
-          "aggregationType": {
-            "$ref": "#/components/schemas/AggregationType"
-          },
-          "aggregationInterval": {
-            "$ref": "#/components/schemas/AggregationInterval"
-          }
-        },
-        "description": "Aggregation of calls duration by type (Direct, FromQueue, ParkRetrieval, Transferred, Outbound)"
+        "description": "Aggregation of calls duration by type (Direct, FromQueue, ParkRetrieval, Transferred, Outbound)",
+        "$ref": "#/components/schemas/AggregationResponseOptionsTimersCallsDurationByType"
       }
     },
     "description": "The formula is defined by `aggregationType` and `aggregationInterval` for every timer individually.\nIf `aggregationType` is `Sum` or `Percent`, `aggregationInterval` is not supported.\nIf `aggregationType` is `Min`, `Max` or `Average`, `aggregationInterval` is supported, but not required.\nIf left empty, aggregation will be performed on per-call basis",
@@ -32282,5 +31820,647 @@
     },
     "description": "A list of time-value points of call data as per the grouping and filtering options specified in the request",
     "name": "TimelineResponseData"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "telephonySessionId": {
+        "type": "string",
+        "description": "Internal Identifier of Telephony Session, which belongs to transfer target in case of Warm Transfer"
+      }
+    },
+    "name": "CompanyCallLogRecordTransferTarget"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "telephonySessionId": {
+        "type": "string",
+        "description": "Internal Identifier of Telephony Session, which belongs to transferee in case of Warm Transfer"
+      }
+    },
+    "name": "CompanyCallLogRecordTransferee"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "telephonySessionId": {
+        "type": "string",
+        "description": "Internal Identifier of Telephony Session, which belongs to transfer target in case of Warm Transfer"
+      }
+    },
+    "name": "CallLogRecordLegInfoTransferTarget"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "telephonySessionId": {
+        "type": "string",
+        "description": "Internal Identifier of Telephony Session, which belongs to transferee in case of Warm Transfer"
+      }
+    },
+    "name": "CallLogRecordLegInfoTransferee"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "successful": {
+        "type": "array",
+        "description": "Recipients' phone numbers which opt-ins were successfully added for.",
+        "items": {
+          "type": "string"
+        },
+        "example": [
+          "+15551237799"
+        ]
+      },
+      "failed": {
+        "type": "array",
+        "description": "Recipients' phone numbers which opt-ins were failed to be added for. Plus, error messages",
+        "items": {
+          "$ref": "#/components/schemas/OptOutBulkAssignFailedEntry"
+        },
+        "example": [
+          {
+            "to": "+15551237798",
+            "errorMessage": "Unexpected issue on removing an opt-out from bulk-assign request"
+          }
+        ]
+      }
+    },
+    "name": "OptOutBulkAssignResponseOptIns"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "successful": {
+        "type": "array",
+        "description": "Recipients' phone numbers which opt-outs were successfully added for.",
+        "items": {
+          "type": "string"
+        },
+        "example": [
+          "+15551237755"
+        ]
+      },
+      "failed": {
+        "type": "array",
+        "description": "Recipients' phone numbers which opt-outs were failed to be added for. Plus, error messages",
+        "items": {
+          "$ref": "#/components/schemas/OptOutBulkAssignFailedEntry"
+        },
+        "example": [
+          {
+            "to": "+15551237756",
+            "errorMessage": "Unexpected issue on creating an opt-out from bulk-assign request"
+          }
+        ]
+      }
+    },
+    "name": "OptOutBulkAssignResponseOptOuts"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "telephonySessionId": {
+        "type": "string",
+        "description": "Internal Identifier of Telephony Session, which belongs to transfer target in case of Warm Transfer"
+      }
+    },
+    "name": "CallLogRecordTransferTarget"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "telephonySessionId": {
+        "type": "string",
+        "description": "Internal Identifier of Telephony Session, which belongs to transferee in case of Warm Transfer"
+      }
+    },
+    "name": "CallLogRecordTransferee"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "telephonySessionId": {
+        "type": "string",
+        "description": "Internal Identifier of Telephony Session, which belongs to transfer target in case of Warm Transfer"
+      }
+    },
+    "name": "UserCallLogRecordTransferTarget"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "telephonySessionId": {
+        "type": "string",
+        "description": "Internal Identifier of Telephony Session, which belongs to transferee in case of Warm Transfer"
+      }
+    },
+    "name": "UserCallLogRecordTransferee"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "blacklistedAt": {
+        "type": "string",
+        "format": "date-time",
+        "description": "Time of adding subscription to a black list in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)\nformat including timezone, for example *2016-03-10T18:07:52.534Z*\n"
+      },
+      "reason": {
+        "type": "string",
+        "description": "Reason of adding subscription to a black list"
+      }
+    },
+    "name": "SubscriptionInfoBlacklistedData"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Internal identifier of a country"
+      },
+      "name": {
+        "type": "string",
+        "description": "Official name of a country"
+      }
+    },
+    "name": "ContractedCountryListResponseRecords"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Assignee Id"
+      }
+    },
+    "name": "TMUpdateTaskRequestAssignees"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "schedule": {
+        "type": "string",
+        "description": "Task recurrence settings.",
+        "default": "None",
+        "enum": [
+          "None",
+          "Daily",
+          "Weekdays",
+          "Weekly",
+          "Monthly",
+          "Yearly"
+        ]
+      },
+      "endingCondition": {
+        "type": "string",
+        "description": "Task ending condition.",
+        "enum": [
+          "None",
+          "Count",
+          "Date"
+        ]
+      },
+      "endingAfter": {
+        "maximum": 10,
+        "minimum": 1,
+        "type": "integer",
+        "format": "int32",
+        "description": "Count of iterations of periodic tasks."
+      },
+      "endingOn": {
+        "type": "string",
+        "description": "The end date of periodic task in UTC time zone.",
+        "format": "date-time"
+      }
+    },
+    "name": "TMUpdateTaskRequestRecurrence"
+  },
+  {
+    "type": "object",
+    "properties": {},
+    "name": "TMTaskListRecords"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Creator Id"
+      }
+    },
+    "name": "TMTaskInfoCreator"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Assignee Id"
+      },
+      "status": {
+        "type": "string",
+        "description": "Task execution status by assignee",
+        "enum": [
+          "Pending",
+          "Completed"
+        ]
+      }
+    },
+    "name": "TMTaskInfoAssignees"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "schedule": {
+        "type": "string",
+        "description": "Task recurrence settings. None for non-periodic tasks.",
+        "enum": [
+          "None",
+          "Daily",
+          "Weekdays",
+          "Weekly",
+          "Monthly",
+          "Yearly"
+        ]
+      },
+      "endingCondition": {
+        "type": "string",
+        "description": "Task ending condition.",
+        "enum": [
+          "None",
+          "Count",
+          "Date"
+        ]
+      },
+      "endingAfter": {
+        "maximum": 10,
+        "minimum": 1,
+        "type": "integer",
+        "format": "int32",
+        "description": "Count of iterations of periodic tasks."
+      },
+      "endingOn": {
+        "type": "string",
+        "description": "End date of periodic task.",
+        "format": "date-time"
+      }
+    },
+    "name": "TMTaskInfoRecurrence"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Assignee Id"
+      }
+    },
+    "name": "TMCompleteTaskRequestAssignees"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Assignee Id"
+      }
+    },
+    "name": "TMCreateTaskRequestAssignees"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "schedule": {
+        "type": "string",
+        "description": "Task recurrence settings.",
+        "default": "None",
+        "enum": [
+          "None",
+          "Daily",
+          "Weekdays",
+          "Weekly",
+          "Monthly",
+          "Yearly"
+        ]
+      },
+      "endingCondition": {
+        "type": "string",
+        "description": "Task ending condition.",
+        "default": "None",
+        "enum": [
+          "None",
+          "Count",
+          "Date"
+        ]
+      },
+      "endingAfter": {
+        "maximum": 10,
+        "minimum": 1,
+        "type": "integer",
+        "format": "int32",
+        "description": "Count of iterations of periodic tasks."
+      },
+      "endingOn": {
+        "type": "string",
+        "description": "The end date of periodic task in UTC time zone.",
+        "format": "date-time"
+      }
+    },
+    "name": "TMCreateTaskRequestRecurrence"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Internal identifier of a person"
+      },
+      "email": {
+        "type": "string",
+        "format": "email",
+        "description": "Email of a person"
+      }
+    },
+    "name": "CreateConversationRequestMembers"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Internal identifier of a person"
+      },
+      "email": {
+        "type": "string",
+        "format": "email",
+        "description": "Email of a person"
+      }
+    },
+    "name": "TMCreateTeamRequestMembers"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Internal identifier of a person"
+      }
+    },
+    "name": "TMRemoveTeamMembersRequestMembers"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Internal identifier of a person"
+      },
+      "email": {
+        "type": "string",
+        "format": "email",
+        "description": "Email of a person"
+      }
+    },
+    "name": "TMAddTeamMembersRequestMembers"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "aggregationType": {
+        "$ref": "#/components/schemas/AggregationType"
+      },
+      "aggregationInterval": {
+        "$ref": "#/components/schemas/AggregationInterval"
+      }
+    },
+    "name": "AggregationResponseOptionsCountersAllCalls"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "aggregationType": {
+        "$ref": "#/components/schemas/AggregationType"
+      },
+      "aggregationInterval": {
+        "$ref": "#/components/schemas/AggregationInterval"
+      }
+    },
+    "name": "AggregationResponseOptionsCountersCallsByDirection"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "aggregationType": {
+        "$ref": "#/components/schemas/AggregationType"
+      },
+      "aggregationInterval": {
+        "$ref": "#/components/schemas/AggregationInterval"
+      }
+    },
+    "name": "AggregationResponseOptionsCountersCallsByOrigin"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "aggregationType": {
+        "$ref": "#/components/schemas/AggregationType"
+      },
+      "aggregationInterval": {
+        "$ref": "#/components/schemas/AggregationInterval"
+      }
+    },
+    "name": "AggregationResponseOptionsCountersCallsByResponse"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "aggregationType": {
+        "$ref": "#/components/schemas/AggregationType"
+      },
+      "aggregationInterval": {
+        "$ref": "#/components/schemas/AggregationInterval"
+      }
+    },
+    "name": "AggregationResponseOptionsCountersCallsSegments"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "aggregationType": {
+        "$ref": "#/components/schemas/AggregationType"
+      },
+      "aggregationInterval": {
+        "$ref": "#/components/schemas/AggregationInterval"
+      }
+    },
+    "name": "AggregationResponseOptionsCountersCallsByResult"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "aggregationType": {
+        "$ref": "#/components/schemas/AggregationType"
+      },
+      "aggregationInterval": {
+        "$ref": "#/components/schemas/AggregationInterval"
+      }
+    },
+    "name": "AggregationResponseOptionsCountersCallsByCompanyHours"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "aggregationType": {
+        "$ref": "#/components/schemas/AggregationType"
+      },
+      "aggregationInterval": {
+        "$ref": "#/components/schemas/AggregationInterval"
+      }
+    },
+    "name": "AggregationResponseOptionsCountersCallsByQueueSla"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "aggregationType": {
+        "$ref": "#/components/schemas/AggregationType"
+      },
+      "aggregationInterval": {
+        "$ref": "#/components/schemas/AggregationInterval"
+      }
+    },
+    "name": "AggregationResponseOptionsCountersCallsByActions"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "aggregationType": {
+        "$ref": "#/components/schemas/AggregationType"
+      },
+      "aggregationInterval": {
+        "$ref": "#/components/schemas/AggregationInterval"
+      }
+    },
+    "name": "AggregationResponseOptionsCountersCallsByType"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "aggregationType": {
+        "$ref": "#/components/schemas/QueueOpportunitiesAggregationType"
+      }
+    },
+    "name": "AggregationResponseOptionsCountersQueueOpportunities"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "aggregationType": {
+        "$ref": "#/components/schemas/AggregationType"
+      },
+      "aggregationInterval": {
+        "$ref": "#/components/schemas/AggregationInterval"
+      }
+    },
+    "name": "AggregationResponseOptionsTimersAllCallsDuration"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "aggregationType": {
+        "$ref": "#/components/schemas/AggregationType"
+      },
+      "aggregationInterval": {
+        "$ref": "#/components/schemas/AggregationInterval"
+      }
+    },
+    "name": "AggregationResponseOptionsTimersCallsDurationByDirection"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "aggregationType": {
+        "$ref": "#/components/schemas/AggregationType"
+      },
+      "aggregationInterval": {
+        "$ref": "#/components/schemas/AggregationInterval"
+      }
+    },
+    "name": "AggregationResponseOptionsTimersCallsDurationByOrigin"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "aggregationType": {
+        "$ref": "#/components/schemas/AggregationType"
+      },
+      "aggregationInterval": {
+        "$ref": "#/components/schemas/AggregationInterval"
+      }
+    },
+    "name": "AggregationResponseOptionsTimersCallsDurationByResponse"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "aggregationType": {
+        "$ref": "#/components/schemas/AggregationType"
+      },
+      "aggregationInterval": {
+        "$ref": "#/components/schemas/AggregationInterval"
+      }
+    },
+    "name": "AggregationResponseOptionsTimersCallsSegmentsDuration"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "aggregationType": {
+        "$ref": "#/components/schemas/AggregationType"
+      },
+      "aggregationInterval": {
+        "$ref": "#/components/schemas/AggregationInterval"
+      }
+    },
+    "name": "AggregationResponseOptionsTimersCallsDurationByResult"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "aggregationType": {
+        "$ref": "#/components/schemas/AggregationType"
+      },
+      "aggregationInterval": {
+        "$ref": "#/components/schemas/AggregationInterval"
+      }
+    },
+    "name": "AggregationResponseOptionsTimersCallsDurationByCompanyHours"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "aggregationType": {
+        "$ref": "#/components/schemas/AggregationType"
+      },
+      "aggregationInterval": {
+        "$ref": "#/components/schemas/AggregationInterval"
+      }
+    },
+    "name": "AggregationResponseOptionsTimersCallsDurationByQueueSla"
+  },
+  {
+    "type": "object",
+    "properties": {
+      "aggregationType": {
+        "$ref": "#/components/schemas/AggregationType"
+      },
+      "aggregationInterval": {
+        "$ref": "#/components/schemas/AggregationInterval"
+      }
+    },
+    "name": "AggregationResponseOptionsTimersCallsDurationByType"
   }
 ]

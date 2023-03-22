@@ -27,6 +27,7 @@ export const ref = (schemas: NamedSchema[]) => {
         name,
       });
       delete property.properties;
+      delete property.type;
       (property as OpenAPIV3.ReferenceObject).$ref = `#/components/schemas/${name}`;
     }
   }
