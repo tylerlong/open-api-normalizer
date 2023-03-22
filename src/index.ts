@@ -1,3 +1,5 @@
+import { writeFileSync } from 'fs';
+
 import { models } from './definitions';
 
-console.log(JSON.stringify(models.slice(-1), null, 2));
+writeFileSync('models.json', JSON.stringify(models, null, 2));
