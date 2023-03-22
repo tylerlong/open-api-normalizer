@@ -1,6 +1,6 @@
 import { OpenAPIV3 } from 'openapi-types';
 
-import { operations } from '../../raw-data';
+import { doc, operations } from '../../raw-data';
 import { NamedSchema } from '../../types';
 import { capitalizeFirstLetter } from '../../utils';
 
@@ -10,7 +10,17 @@ export const readQueryParams = () => {
     if (!operation.parameters) {
       continue;
     }
-    const queryParameters = operation.parameters.filter((p) => p.in !== 'path' && p.in !== 'header');
+    let queryParameters = operation.parameters;
+    for (const qp of queryParameters) {
+      // inline parameters
+      if ('$ref' in qp) {
+        const name = (qp.$ref as string).split('/').pop()!;
+        Object.assign(qp, doc.components?.parameters?.[name]);
+        delete qp.$ref;
+      }
+    }
+    // no path or header parameters
+    queryParameters = operation.parameters.filter((p) => p.in !== 'path' && p.in !== 'header');
     if (queryParameters.length === 0) {
       continue;
     }
@@ -24,6 +34,7 @@ export const readQueryParams = () => {
           Object.assign(schemaObject, p.schema, {
             in: undefined,
             schema: undefined,
+            name: undefined,
           });
           return [p.name, schemaObject];
         }),
