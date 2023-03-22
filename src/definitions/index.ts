@@ -1,14 +1,17 @@
-import { deRef } from './models/references';
-import { gatherSchemas } from './schemas';
+import { gatherModels } from './models';
+// import { deRef } from './models/references';
+// import { gatherSchemas } from './schemas';
 
-export const gatherModels = () => {
-  const schemas = gatherSchemas();
+// export const gatherModels = () => {
+//   const schemas = gatherSchemas();
 
-  return schemas.map(deRef);
+//   return schemas.map(deRef);
 
-  // const models: Model[] = [];
-  // for (const schema of schemas) {
-  //   models.push(toModel(schema));
-  // }
-  // return models;
-};
+//   // const models: Model[] = [];
+//   // for (const schema of schemas) {
+//   //   models.push(toModel(schema));
+//   // }
+//   // return models;
+// };
+
+export const models = gatherModels();

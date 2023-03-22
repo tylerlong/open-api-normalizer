@@ -7,8 +7,8 @@ import { handleSpecialCases } from './special-cases';
 export const gatherSchemas = () => {
   const schemas: NamedSchema[] = [];
   schemas.push(...handleSpecialCases());
-  schemas.push(...readSchemas());
   schemas.push(...readQueryParams());
   schemas.push(...readForms());
+  schemas.push(...readSchemas());
   return schemas;
 };
