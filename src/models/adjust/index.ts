@@ -4,6 +4,10 @@ import { fixFax } from './fax';
 import { fixGreeting } from './greeting';
 import { ref } from './ref';
 
-export const adjust = (schemas: NamedSchema[]): NamedSchema[] => {
-  return fixGreeting(fixFax(ref(deRef(schemas))));
+export const adjust = (_schemas: NamedSchema[]): NamedSchema[] => {
+  let schemas = deRef(_schemas);
+  schemas = ref(schemas);
+  schemas = fixFax(schemas);
+  schemas = fixGreeting(schemas);
+  return schemas;
 };
