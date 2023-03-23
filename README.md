@@ -32,6 +32,7 @@ Some models are not in the format we expect, so we need to adjust them.
 
 - de-ref: we don't like models of types `string` and `string[]`. Because these are primitive types. So we inline them instead of `$ref` them. 
 - ref: we don't like properties of type `object`, because they should be a new mode instead and we `$ref` them.
-- fax: by default, the fax doesn't support multiple attachments and the `to` parameter is wrong.
+- fax: by default, the fax doesn't support multiple attachments and the parameter `to` is wrong.
+- greeting: something is wrong with account-level and extension-level greeting HTTP post body
 
 Please refer to [./src/models/adjust/](./src/models/adjust/).

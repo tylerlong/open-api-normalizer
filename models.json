@@ -3528,10 +3528,6 @@
           "TemplateGreeting"
         ]
       },
-      "answeringRuleId": {
-        "type": "string",
-        "description": "Internal identifier of an answering rule"
-      },
       "languageId": {
         "type": "string",
         "description": "Internal identifier of a language. See Get Language\nList\n"
@@ -3540,6 +3536,9 @@
         "type": "string",
         "description": "Media file to upload",
         "format": "binary"
+      },
+      "answeringRule": {
+        "$ref": "#/components/schemas/GreetingAnsweringRuleId"
       }
     },
     "name": "CreateCompanyGreetingRequest",
@@ -3725,14 +3724,13 @@
           "TemplateGreeting"
         ]
       },
-      "answeringRuleId": {
-        "type": "string",
-        "description": "Internal identifier of an answering rule"
-      },
       "binary": {
         "type": "string",
         "description": "Media file to upload",
         "format": "binary"
+      },
+      "answeringRule": {
+        "$ref": "#/components/schemas/GreetingAnsweringRuleId"
       }
     },
     "name": "CreateCustomUserGreetingRequest",
@@ -32478,6 +32476,17 @@
       "name": {
         "type": "string",
         "description": "Name of the receiver"
+      }
+    }
+  },
+  {
+    "type": "object",
+    "name": "GreetingAnsweringRuleId",
+    "description": "Greeting's answering rule id",
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Internal identifier of an answering rule"
       }
     }
   }

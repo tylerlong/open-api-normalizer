@@ -1,6 +1,14 @@
 import { OpenAPIV3 } from 'openapi-types';
 import { NamedSchema } from '../../types';
 
+/**
+ * fix fax sending
+ * https://jira.ringcentral.com/browse/PLD-1239
+ * 1. should allow multiple attachments
+ * 2. to parameters is an object instead of string
+ * @param schemas
+ * @returns
+ */
 export const fixFax = (schemas: NamedSchema[]): NamedSchema[] => {
   const createFaxMessageRequest = schemas.find((schema) => schema.name === 'CreateFaxMessageRequest')!;
   createFaxMessageRequest.required = ['attachments', 'to'];
