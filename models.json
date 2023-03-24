@@ -13475,14 +13475,6 @@
     "name": "ADGErrorResponse"
   },
   {
-    "type": "array",
-    "description": "Types of extension to filter the contacts.",
-    "items": {
-      "$ref": "#/components/schemas/SearchDirectoryExtensionType"
-    },
-    "name": "SearchDirectoryExtensionTypes"
-  },
-  {
     "type": "object",
     "properties": {
       "searchString": {
@@ -13585,7 +13577,31 @@
         }
       },
       "extensionTypes": {
-        "$ref": "#/components/schemas/SearchDirectoryExtensionTypes"
+        "type": "array",
+        "description": "Types of extension to filter the contacts.",
+        "items": {
+          "type": "string",
+          "description": "Type of extension to filter the contacts",
+          "enum": [
+            "User",
+            "Department",
+            "Announcement",
+            "Voicemail",
+            "DigitalUser",
+            "VirtualUser",
+            "FaxUser",
+            "PagingOnly",
+            "SharedLinesGroup",
+            "IvrMenu",
+            "ApplicationExtension",
+            "ParkLocation",
+            "Limited",
+            "Site",
+            "DelegatedLinesGroup",
+            "FlexibleUser"
+          ],
+          "example": "FaxUser"
+        }
       },
       "orderBy": {
         "type": "array",
@@ -22248,29 +22264,6 @@
     "name": "MessageChanges"
   },
   {
-    "type": "array",
-    "minItems": 1,
-    "items": {
-      "allOf": [
-        {
-          "$ref": "#/components/schemas/MultipartRequestEntryBase"
-        },
-        {
-          "type": "object",
-          "required": [
-            "body"
-          ],
-          "properties": {
-            "body": {
-              "$ref": "#/components/schemas/PatchMessageRequest"
-            }
-          }
-        }
-      ]
-    },
-    "name": "PatchMessageBulkRequest"
-  },
-  {
     "name": "GetMessageInfoMultiResponse",
     "type": "object",
     "required": [
@@ -22385,36 +22378,6 @@
       }
     },
     "name": "PatchMessageRequest"
-  },
-  {
-    "type": "array",
-    "minItems": 1,
-    "items": {
-      "allOf": [
-        {
-          "$ref": "#/components/schemas/MultipartRequestEntryBase"
-        },
-        {
-          "type": "object",
-          "required": [
-            "body"
-          ],
-          "properties": {
-            "body": {
-              "$ref": "#/components/schemas/UpdateMessageRequest"
-            }
-          }
-        }
-      ]
-    },
-    "name": "UpdateMessageBulkRequest"
-  },
-  {
-    "type": "array",
-    "items": {
-      "$ref": "#/components/schemas/GetMessageInfoMultiResponse"
-    },
-    "name": "GetMessageMultiResponse"
   },
   {
     "type": "object",
@@ -22587,13 +22550,6 @@
       }
     },
     "name": "UpdateUnifiedPresence"
-  },
-  {
-    "type": "array",
-    "items": {
-      "$ref": "#/components/schemas/UnifiedPresenceListEntry"
-    },
-    "name": "UnifiedPresenceList"
   },
   {
     "type": "object",

@@ -2,7 +2,7 @@ import { doc } from '../../raw-data';
 import { NamedSchema } from '../../types';
 
 const shouldBeInline = (schema: NamedSchema): boolean => {
-  if (schema.type === 'string') {
+  if (schema.type === 'string' || schema.type === 'array') {
     return true;
   }
   // array

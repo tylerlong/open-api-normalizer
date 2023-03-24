@@ -23,7 +23,6 @@ export const mergeOf = (schemas: NamedSchema[]): NamedSchema[] => {
   const mergeOne = (schema: NamedSchema) => {
     const multi = schema.allOf ?? schema.anyOf ?? schema.oneOf;
     if (multi) {
-      console.log('before', JSON.stringify(schema, null, 2));
       for (const item of multi) {
         if ('$ref' in item) {
           const name = (item.$ref as string).split('/').pop()!;
@@ -35,7 +34,6 @@ export const mergeOf = (schemas: NamedSchema[]): NamedSchema[] => {
       delete schema.allOf;
       delete schema.anyOf;
       delete schema.oneOf;
-      console.log('after', JSON.stringify(schema, null, 2));
     }
     return schema;
   };
