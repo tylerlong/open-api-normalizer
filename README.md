@@ -45,3 +45,9 @@ Please refer to [./src/models/adjust/](./src/models/adjust/).
 This step is just data structure conversion, with no information change. We changed the properties object to an array of fields.
 
 Please refer to [./src/models/normalize.ts](./src/models/normalize.ts).
+
+
+
+## Todo:
+
+collect, adjust and normalize path
