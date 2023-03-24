@@ -3,6 +3,7 @@ import { deRef } from './de-ref';
 import { fixFax } from './fax';
 import { fixGreeting } from './greeting';
 import { mergeOf } from './merge-of';
+import { fixMiscellaneous } from './miscellaneous';
 import { ref } from './ref';
 
 export const adjust = (_schemas: NamedSchema[]): NamedSchema[] => {
@@ -11,6 +12,6 @@ export const adjust = (_schemas: NamedSchema[]): NamedSchema[] => {
   schemas = ref(schemas);
   schemas = fixFax(schemas);
   schemas = fixGreeting(schemas);
-  // todo: fix miscellaneous issues
+  schemas = fixMiscellaneous(schemas);
   return schemas;
 };

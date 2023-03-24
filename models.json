@@ -29235,14 +29235,7 @@
       },
       "backgroundImage": {
         "description": "Specifies the background image of a card",
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "$ref": "#/components/schemas/BackgroundImage"
-          }
-        ]
+        "$ref": "#/components/schemas/BackgroundImage"
       },
       "minHeight": {
         "type": "string",
@@ -29592,15 +29585,8 @@
         "description": "Text shown when the client doesn't support the version specified (may contain markdown)"
       },
       "backgroundImage": {
-        "oneOf": [
-          {
-            "$ref": "#/components/schemas/BackgroundImage"
-          },
-          {
-            "type": "string"
-          }
-        ],
-        "description": "Specifies the background image of a card"
+        "description": "Specifies the background image of a card",
+        "$ref": "#/components/schemas/BackgroundImage"
       },
       "minHeight": {
         "type": "string",
