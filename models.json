@@ -4619,42 +4619,50 @@
     "name": "BrandInfo"
   },
   {
-    "allOf": [
-      {
-        "$ref": "#/components/schemas/CountryInfoMinimalModel"
+    "name": "CountryInfoBasicModel",
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Internal identifier of a country"
       },
-      {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "The official name of a country"
-          }
-        }
+      "uri": {
+        "type": "string",
+        "format": "uri",
+        "description": "Canonical URI of a country resource"
+      },
+      "name": {
+        "type": "string",
+        "description": "The official name of a country"
       }
-    ],
-    "name": "CountryInfoBasicModel"
+    }
   },
   {
-    "allOf": [
-      {
-        "$ref": "#/components/schemas/CountryInfoBasicModel"
+    "name": "CountryInfoShortModel",
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Internal identifier of a country"
       },
-      {
-        "type": "object",
-        "properties": {
-          "isoCode": {
-            "type": "string",
-            "description": "A ISO country code value complying with the\n[ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)\nformat.\n"
-          },
-          "callingCode": {
-            "type": "string",
-            "description": "Country calling code defined by [ITU-T](http://en.wikipedia.org/wiki/ITU-T)\nrecommendations [E.123](http://en.wikipedia.org/wiki/E.123) and\n[E.164](http://en.wikipedia.org/wiki/E.164),\nsee [Calling Codes](http://en.wikipedia.org/wiki/List_of_country_calling_codes)\n"
-          }
-        }
+      "uri": {
+        "type": "string",
+        "format": "uri",
+        "description": "Canonical URI of a country resource"
+      },
+      "name": {
+        "type": "string",
+        "description": "The official name of a country"
+      },
+      "isoCode": {
+        "type": "string",
+        "description": "A ISO country code value complying with the\n[ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)\nformat.\n"
+      },
+      "callingCode": {
+        "type": "string",
+        "description": "Country calling code defined by [ITU-T](http://en.wikipedia.org/wiki/ITU-T)\nrecommendations [E.123](http://en.wikipedia.org/wiki/E.123) and\n[E.164](http://en.wikipedia.org/wiki/E.164),\nsee [Calling Codes](http://en.wikipedia.org/wiki/List_of_country_calling_codes)\n"
       }
-    ],
-    "name": "CountryInfoShortModel"
+    }
   },
   {
     "type": "object",
@@ -4890,26 +4898,33 @@
     "name": "ApiError"
   },
   {
-    "description": "The error model with additional attributes which can be used for HTTP 400/409",
-    "allOf": [
-      {
-        "$ref": "#/components/schemas/ApiError"
-      },
-      {
-        "type": "object",
-        "properties": {
-          "parameterName": {
-            "type": "string",
-            "description": "The name of the API parameter/attribute which caused the error"
-          },
-          "parameterValue": {
-            "type": "string",
-            "description": "The value of the API parameter/attribute which caused the error"
-          }
-        }
-      }
+    "description": "Generalized API error structure suitable for any error type",
+    "name": "ApiErrorWithParameter",
+    "type": "object",
+    "required": [
+      "errorCode",
+      "message"
     ],
-    "name": "ApiErrorWithParameter"
+    "properties": {
+      "errorCode": {
+        "type": "string",
+        "description": "Logical error code (typically, 3 letters followed with number, dash separated)",
+        "example": "XXX-123"
+      },
+      "message": {
+        "type": "string",
+        "description": "User-friendly error message",
+        "example": "Something went wrong"
+      },
+      "parameterName": {
+        "type": "string",
+        "description": "The name of the API parameter/attribute which caused the error"
+      },
+      "parameterValue": {
+        "type": "string",
+        "description": "The value of the API parameter/attribute which caused the error"
+      }
+    }
   },
   {
     "type": "object",
@@ -22256,23 +22271,29 @@
     "name": "PatchMessageBulkRequest"
   },
   {
-    "allOf": [
-      {
-        "$ref": "#/components/schemas/MultipartResponseEntryBase"
-      },
-      {
-        "type": "object",
-        "required": [
-          "body"
-        ],
-        "properties": {
-          "body": {
-            "$ref": "#/components/schemas/GetMessageInfoResponse"
-          }
-        }
-      }
+    "name": "GetMessageInfoMultiResponse",
+    "type": "object",
+    "required": [
+      "resourceId",
+      "status",
+      "body"
     ],
-    "name": "GetMessageInfoMultiResponse"
+    "properties": {
+      "resourceId": {
+        "type": "string",
+        "description": "Internal identifier of a resource",
+        "example": "1724099032020"
+      },
+      "status": {
+        "type": "integer",
+        "format": "int32",
+        "description": "HTTP status code of an operation on given resource",
+        "example": 200
+      },
+      "body": {
+        "$ref": "#/components/schemas/GetMessageInfoResponse"
+      }
+    }
   },
   {
     "type": "object",
@@ -24654,17 +24675,6 @@
     "name": "SubscriptionListResource"
   },
   {
-    "anyOf": [
-      {
-        "$ref": "#/components/schemas/WebhookDeliveryModeRequest"
-      },
-      {
-        "$ref": "#/components/schemas/MobileDeliveryModeRequest"
-      },
-      {
-        "$ref": "#/components/schemas/PubNubDeliveryModeRequest"
-      }
-    ],
     "discriminator": {
       "propertyName": "transportType",
       "mapping": {
@@ -24674,26 +24684,79 @@
         "PubNub": "#/components/schemas/PubNubDeliveryModeRequest"
       }
     },
-    "name": "NotificationDeliveryModeRequest"
+    "name": "NotificationDeliveryModeRequest",
+    "type": "object",
+    "required": [
+      "transportType",
+      "address",
+      "certificateName",
+      "registrationId"
+    ],
+    "properties": {
+      "transportType": {
+        "type": "string",
+        "description": "Notifications transport type",
+        "enum": [
+          "WebHook",
+          "RC/APNS",
+          "RC/GCM",
+          "PubNub"
+        ]
+      },
+      "address": {
+        "type": "string",
+        "format": "uri",
+        "description": "(Only for a \"WebHook\" transport, required) URL of a subscriber's web service\n",
+        "example": "https://acme.com/myservice/webhook"
+      },
+      "verificationToken": {
+        "type": "string",
+        "description": "(Only for a \"WebHook\" transport, optional) Subscription verification token",
+        "writeOnly": true
+      },
+      "certificateName": {
+        "type": "string",
+        "description": "Certificate name for mobile notification transports"
+      },
+      "registrationId": {
+        "type": "string",
+        "description": "Device instance ID for mobile notification transports",
+        "example": "38b062ae-85f8-4dcc-8734-04d3f7393d42"
+      },
+      "encryption": {
+        "type": "boolean",
+        "description": "Optional. Specifies if notification messages will be encrypted\nor not. Please note that for some event filters (e.g. presence) encryption is mandatory and\n`false` value provided by caller will be ignored.\n",
+        "default": false
+      }
+    }
   },
   {
-    "allOf": [
-      {
-        "$ref": "#/components/schemas/UpdateSubscriptionRequest"
-      },
-      {
-        "type": "object",
-        "required": [
-          "deliveryMode"
-        ],
-        "properties": {
-          "deliveryMode": {
-            "$ref": "#/components/schemas/NotificationDeliveryModeRequest"
-          }
-        }
-      }
+    "name": "CreateSubscriptionRequest",
+    "type": "object",
+    "required": [
+      "eventFilters",
+      "deliveryMode"
     ],
-    "name": "CreateSubscriptionRequest"
+    "properties": {
+      "eventFilters": {
+        "type": "array",
+        "description": "The list of event filters corresponding to events the user is subscribed to",
+        "minItems": 1,
+        "items": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "expiresIn": {
+        "type": "integer",
+        "format": "int32",
+        "minimum": 1,
+        "description": "Subscription lifetime in seconds.\n- For \"WebHook\" transport type max value might be set up to 315360000 seconds (10 years).\n- For \"RC/APNS\" and \"RC/GSM\" transport types max subscription lifetime is 7776000 seconds (90 days).\n- For \"PubNub\" transport type the max value is 900 seconds (15 minutes)\n"
+      },
+      "deliveryMode": {
+        "$ref": "#/components/schemas/NotificationDeliveryModeRequest"
+      }
+    }
   },
   {
     "type": "object",
@@ -24741,17 +24804,6 @@
     "name": "UpdateSubscriptionRequest"
   },
   {
-    "anyOf": [
-      {
-        "$ref": "#/components/schemas/WebhookDeliveryMode"
-      },
-      {
-        "$ref": "#/components/schemas/MobileDeliveryMode"
-      },
-      {
-        "$ref": "#/components/schemas/PubNubDeliveryMode"
-      }
-    ],
     "discriminator": {
       "propertyName": "transportType",
       "mapping": {
@@ -24761,31 +24813,114 @@
         "PubNub": "#/components/schemas/PubNubDeliveryMode"
       }
     },
-    "name": "NotificationDeliveryMode"
+    "name": "NotificationDeliveryMode",
+    "type": "object",
+    "required": [
+      "transportType",
+      "address",
+      "encryption",
+      "certificateName",
+      "registrationId",
+      "subscriberKey",
+      "secretKey"
+    ],
+    "properties": {
+      "transportType": {
+        "type": "string",
+        "description": "Notifications transport type",
+        "enum": [
+          "WebHook",
+          "RC/APNS",
+          "RC/GCM",
+          "PubNub"
+        ]
+      },
+      "address": {
+        "type": "string",
+        "format": "uri",
+        "description": "PubNub channel name\n",
+        "example": "54770517599294_6dda849e",
+        "readOnly": true
+      },
+      "encryption": {
+        "type": "boolean",
+        "description": "Optional. Specifies if notification messages will be encrypted\nor not. Please note that for some event filters (e.g. presence) encryption is mandatory and\n`false` value provided by caller will be ignored.\n",
+        "enum": [
+          false
+        ],
+        "readOnly": true,
+        "default": false
+      },
+      "certificateName": {
+        "type": "string",
+        "description": "Certificate name for mobile notification transports"
+      },
+      "registrationId": {
+        "type": "string",
+        "description": "Device instance ID for mobile notification transports",
+        "example": "38b062ae-85f8-4dcc-8734-04d3f7393d42"
+      },
+      "subscriberKey": {
+        "type": "string",
+        "description": "PubNub credential required to subscribe to the channel",
+        "readOnly": true
+      },
+      "secretKey": {
+        "type": "string",
+        "description": "PubNub credential required to subscribe to the channel",
+        "readOnly": true
+      },
+      "encryptionAlgorithm": {
+        "type": "string",
+        "description": "(Only for a \"PubNub\" transport, returned only if `encryption` is `true`)\nEncryption algorithm used\n",
+        "enum": [
+          "AES"
+        ],
+        "readOnly": true
+      },
+      "encryptionKey": {
+        "type": "string",
+        "description": "(Only for a \"PubNub\" transport, returned only if `encryption` is `true`)\nCryptographic key to decrypt PubNub notification messages\n",
+        "readOnly": true
+      }
+    }
   },
   {
-    "allOf": [
-      {
-        "$ref": "#/components/schemas/MobileDeliveryModeRequest"
-      },
-      {
-        "type": "object",
-        "required": [
-          "encryption"
-        ],
-        "properties": {
-          "encryption": {
-            "type": "boolean",
-            "description": "Specifies if notification messages will be encrypted or not.",
-            "enum": [
-              false
-            ],
-            "readOnly": true
-          }
-        }
-      }
+    "name": "MobileDeliveryMode",
+    "type": "object",
+    "required": [
+      "transportType",
+      "certificateName",
+      "registrationId",
+      "encryption"
     ],
-    "name": "MobileDeliveryMode"
+    "properties": {
+      "transportType": {
+        "type": "string",
+        "description": "Notifications transport type",
+        "enum": [
+          "RC/APNS",
+          "RC/GCM"
+        ]
+      },
+      "certificateName": {
+        "type": "string",
+        "description": "Certificate name for mobile notification transports"
+      },
+      "registrationId": {
+        "type": "string",
+        "description": "Device instance ID for mobile notification transports",
+        "example": "38b062ae-85f8-4dcc-8734-04d3f7393d42"
+      },
+      "encryption": {
+        "type": "boolean",
+        "description": "Specifies if notification messages will be encrypted or not.",
+        "enum": [
+          false
+        ],
+        "readOnly": true
+      }
+    }
   },
   {
     "type": "object",
@@ -24866,52 +25001,58 @@
     "name": "DisabledFilterInfo"
   },
   {
-    "allOf": [
-      {
-        "$ref": "#/components/schemas/PubNubDeliveryModeRequest"
-      },
-      {
-        "type": "object",
-        "required": [
-          "address",
-          "subscriberKey",
-          "secretKey",
-          "encryption"
-        ],
-        "properties": {
-          "address": {
-            "type": "string",
-            "description": "PubNub channel name\n",
-            "example": "54770517599294_6dda849e",
-            "readOnly": true
-          },
-          "subscriberKey": {
-            "type": "string",
-            "description": "PubNub credential required to subscribe to the channel",
-            "readOnly": true
-          },
-          "secretKey": {
-            "type": "string",
-            "description": "PubNub credential required to subscribe to the channel",
-            "readOnly": true
-          },
-          "encryptionAlgorithm": {
-            "type": "string",
-            "description": "(Only for a \"PubNub\" transport, returned only if `encryption` is `true`)\nEncryption algorithm used\n",
-            "enum": [
-              "AES"
-            ],
-            "readOnly": true
-          },
-          "encryptionKey": {
-            "type": "string",
-            "description": "(Only for a \"PubNub\" transport, returned only if `encryption` is `true`)\nCryptographic key to decrypt PubNub notification messages\n",
-            "readOnly": true
-          }
-        }
-      }
+    "name": "PubNubDeliveryMode",
+    "type": "object",
+    "required": [
+      "transportType",
+      "address",
+      "subscriberKey",
+      "secretKey",
+      "encryption"
     ],
-    "name": "PubNubDeliveryMode"
+    "properties": {
+      "transportType": {
+        "type": "string",
+        "description": "Notifications transport type",
+        "enum": [
+          "PubNub"
+        ]
+      },
+      "encryption": {
+        "type": "boolean",
+        "description": "Optional. Specifies if notification messages will be encrypted\nor not. Please note that for some event filters (e.g. presence) encryption is mandatory and\n`false` value provided by caller will be ignored.\n",
+        "default": false
+      },
+      "address": {
+        "type": "string",
+        "description": "PubNub channel name\n",
+        "example": "54770517599294_6dda849e",
+        "readOnly": true
+      },
+      "subscriberKey": {
+        "type": "string",
+        "description": "PubNub credential required to subscribe to the channel",
+        "readOnly": true
+      },
+      "secretKey": {
+        "type": "string",
+        "description": "PubNub credential required to subscribe to the channel",
+        "readOnly": true
+      },
+      "encryptionAlgorithm": {
+        "type": "string",
+        "description": "(Only for a \"PubNub\" transport, returned only if `encryption` is `true`)\nEncryption algorithm used\n",
+        "enum": [
+          "AES"
+        ],
+        "readOnly": true
+      },
+      "encryptionKey": {
+        "type": "string",
+        "description": "(Only for a \"PubNub\" transport, returned only if `encryption` is `true`)\nCryptographic key to decrypt PubNub notification messages\n",
+        "readOnly": true
+      }
+    }
   },
   {
     "required": [
@@ -25204,49 +25345,55 @@
     "name": "CountryListDictionaryModel"
   },
   {
-    "allOf": [
-      {
-        "$ref": "#/components/schemas/CountryInfoShortModel"
+    "name": "CountryInfoDictionaryModel",
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Internal identifier of a country"
       },
-      {
-        "type": "object",
-        "properties": {
-          "emergencyCalling": {
-            "type": "boolean",
-            "description": "Emergency calling feature availability/emergency address requirement indicator\n"
-          },
-          "isoCode": {
-            "type": "string",
-            "description": "Country code according to the ISO standard, see\n[ISO 3166](https://www.iso.org/iso-3166-country-codes.html)\n"
-          },
-          "name": {
-            "type": "string",
-            "description": "The official name of a country"
-          },
-          "numberSelling": {
-            "type": "boolean",
-            "description": "Indicates that phone numbers are available for this country"
-          },
-          "loginAllowed": {
-            "type": "boolean",
-            "description": "Indicates that login with the phone number of this country is allowed"
-          },
-          "signupAllowed": {
-            "type": "boolean",
-            "description": "Indicates that signup/billing is allowed for this country"
-          },
-          "freeSoftphoneLine": {
-            "type": "boolean",
-            "description": "Indicates that free phone line for softphone is available for this country"
-          },
-          "localDialing": {
-            "type": "boolean",
-            "description": "Indicates that the local dialing is supported in this country and default area code can be set"
-          }
-        }
+      "uri": {
+        "type": "string",
+        "format": "uri",
+        "description": "Canonical URI of a country resource"
+      },
+      "name": {
+        "type": "string",
+        "description": "The official name of a country"
+      },
+      "isoCode": {
+        "type": "string",
+        "description": "Country code according to the ISO standard, see\n[ISO 3166](https://www.iso.org/iso-3166-country-codes.html)\n"
+      },
+      "callingCode": {
+        "type": "string",
+        "description": "Country calling code defined by [ITU-T](http://en.wikipedia.org/wiki/ITU-T)\nrecommendations [E.123](http://en.wikipedia.org/wiki/E.123) and\n[E.164](http://en.wikipedia.org/wiki/E.164),\nsee [Calling Codes](http://en.wikipedia.org/wiki/List_of_country_calling_codes)\n"
+      },
+      "emergencyCalling": {
+        "type": "boolean",
+        "description": "Emergency calling feature availability/emergency address requirement indicator\n"
+      },
+      "numberSelling": {
+        "type": "boolean",
+        "description": "Indicates that phone numbers are available for this country"
+      },
+      "loginAllowed": {
+        "type": "boolean",
+        "description": "Indicates that login with the phone number of this country is allowed"
+      },
+      "signupAllowed": {
+        "type": "boolean",
+        "description": "Indicates that signup/billing is allowed for this country"
+      },
+      "freeSoftphoneLine": {
+        "type": "boolean",
+        "description": "Indicates that free phone line for softphone is available for this country"
+      },
+      "localDialing": {
+        "type": "boolean",
+        "description": "Indicates that the local dialing is supported in this country and default area code can be set"
       }
-    ],
-    "name": "CountryInfoDictionaryModel"
+    }
   },
   {
     "type": "object",
@@ -28897,24 +29044,6 @@
     "name": "AdaptiveCardInfoRequest"
   },
   {
-    "description": "Describes how the image should be aligned if it must be cropped or if using repeat fill mode",
-    "anyOf": [
-      {
-        "type": "string",
-        "enum": [
-          "top",
-          "center",
-          "bottom"
-        ]
-      },
-      {
-        "type": "string",
-        "pattern": "^([t|T][o|O][p|P])|([c|C][e|E][n|N][t|T][e|E][r|R])|([b|B][o|O][t|T][t|T][o|O][m|M])$"
-      }
-    ],
-    "name": "VerticalAlignment"
-  },
-  {
     "type": "object",
     "description": "An action that will be invoked when the card is tapped or selected. `Action.ShowCard` is not supported",
     "required": [
@@ -28931,24 +29060,6 @@
       }
     },
     "name": "AdaptiveCardSelectAction"
-  },
-  {
-    "description": "Describes how the image should be aligned if it must be cropped or if using repeat fill mode",
-    "anyOf": [
-      {
-        "type": "string",
-        "enum": [
-          "left",
-          "center",
-          "right"
-        ]
-      },
-      {
-        "type": "string",
-        "pattern": "^([l|L][e|E][f|F][t|T])|([c|C][e|E][n|N][t|T][e|E][r|R])|([r|R][i|I][g|G][h|H][t|T])$"
-      }
-    ],
-    "name": "HorizontalAlignment"
   },
   {
     "type": "object",
@@ -28992,25 +29103,6 @@
       }
     },
     "name": "ActionAdaptiveCardInfo"
-  },
-  {
-    "description": "Describes how the image should fill the area",
-    "anyOf": [
-      {
-        "type": "string",
-        "enum": [
-          "cover",
-          "repeatHorizontally",
-          "repeatVertically",
-          "repeat"
-        ]
-      },
-      {
-        "type": "string",
-        "pattern": "^([c|C][o|O][v|V][e|E][r|R])|([r|R][e|E][p|P][e|E][a|A][t|T][h|H][o|O][r|R][i|I][z|Z][o|O][n|N][t|T][a|A][l|L][l|L][y|Y])|([r|R][e|E][p|P][e|E][a|A][t|T][v|V][e|E][r|R][t|T][i|I][c|C][a|A][l|L][l|L][y|Y])|([r|R][e|E][p|P][e|E][a|A][t|T])$"
-      }
-    ],
-    "name": "ImageFillMode"
   },
   {
     "type": "object",
@@ -29074,13 +29166,35 @@
         "description": "The URL/data URL of an image to be used as a background of a card. Acceptable formats are PNG, JPEG, and GIF"
       },
       "fillMode": {
-        "$ref": "#/components/schemas/ImageFillMode"
+        "description": "Describes how the image should fill the area",
+        "type": "string",
+        "enum": [
+          "cover",
+          "repeatHorizontally",
+          "repeatVertically",
+          "repeat"
+        ],
+        "pattern": "^([c|C][o|O][v|V][e|E][r|R])|([r|R][e|E][p|P][e|E][a|A][t|T][h|H][o|O][r|R][i|I][z|Z][o|O][n|N][t|T][a|A][l|L][l|L][y|Y])|([r|R][e|E][p|P][e|E][a|A][t|T][v|V][e|E][r|R][t|T][i|I][c|C][a|A][l|L][l|L][y|Y])|([r|R][e|E][p|P][e|E][a|A][t|T])$"
       },
       "horizontalAlignment": {
-        "$ref": "#/components/schemas/HorizontalAlignment"
+        "description": "Describes how the image should be aligned if it must be cropped or if using repeat fill mode",
+        "type": "string",
+        "enum": [
+          "left",
+          "center",
+          "right"
+        ],
+        "pattern": "^([l|L][e|E][f|F][t|T])|([c|C][e|E][n|N][t|T][e|E][r|R])|([r|R][i|I][g|G][h|H][t|T])$"
       },
       "verticalAlignment": {
-        "$ref": "#/components/schemas/VerticalAlignment"
+        "description": "Describes how the image should be aligned if it must be cropped or if using repeat fill mode",
+        "type": "string",
+        "enum": [
+          "top",
+          "center",
+          "bottom"
+        ],
+        "pattern": "^([t|T][o|O][p|P])|([c|C][e|E][n|N][t|T][e|E][r|R])|([b|B][o|O][t|T][t|T][o|O][m|M])$"
       }
     },
     "name": "BackgroundImage"
@@ -29193,7 +29307,14 @@
         ]
       },
       "verticalContentAlignment": {
-        "$ref": "#/components/schemas/VerticalContentAlignment"
+        "description": "Defines how the content should be aligned vertically within the container. Only relevant for fixed-height cards, or cards with a `minHeight` specified",
+        "type": "string",
+        "enum": [
+          "top",
+          "center",
+          "bottom"
+        ],
+        "pattern": "^([t|T][o|O][p|P])|([c|C][e|E][n|N][t|T][e|E][r|R])|([b|B][o|O][t|T][t|T][o|O][m|M])$"
       }
     },
     "name": "AdaptiveCardRequest"
@@ -29241,24 +29362,6 @@
       }
     },
     "name": "AdaptiveCardShortInfo"
-  },
-  {
-    "description": "Defines how the content should be aligned vertically within the container. Only relevant for fixed-height cards, or cards with a `minHeight` specified",
-    "anyOf": [
-      {
-        "type": "string",
-        "enum": [
-          "top",
-          "center",
-          "bottom"
-        ]
-      },
-      {
-        "type": "string",
-        "pattern": "^([t|T][o|O][p|P])|([c|C][e|E][n|N][t|T][e|E][r|R])|([b|B][o|O][t|T][t|T][o|O][m|M])$"
-      }
-    ],
-    "name": "VerticalContentAlignment"
   },
   {
     "type": "object",
@@ -29562,7 +29665,14 @@
         ]
       },
       "verticalContentAlignment": {
-        "$ref": "#/components/schemas/VerticalContentAlignment"
+        "description": "Defines how the content should be aligned vertically within the container. Only relevant for fixed-height cards, or cards with a `minHeight` specified",
+        "type": "string",
+        "enum": [
+          "top",
+          "center",
+          "bottom"
+        ],
+        "pattern": "^([t|T][o|O][p|P])|([c|C][e|E][n|N][t|T][e|E][r|R])|([b|B][o|O][t|T][t|T][o|O][m|M])$"
       }
     },
     "name": "AdaptiveCardInfo"
@@ -30155,21 +30265,66 @@
     "name": "TMAddTeamMembersRequest"
   },
   {
-    "allOf": [
-      {
-        "$ref": "#/components/schemas/TMNoteInfo"
+    "name": "TMNoteWithBodyInfo",
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Internal identifier of a note"
       },
-      {
-        "type": "object",
-        "properties": {
-          "body": {
-            "type": "string",
-            "description": "Text of a note"
-          }
+      "title": {
+        "type": "string",
+        "description": "Title of a note"
+      },
+      "chatIds": {
+        "type": "array",
+        "description": "Internal identifiers of the chat(s) where the note is posted or shared.",
+        "items": {
+          "type": "string"
         }
+      },
+      "preview": {
+        "type": "string",
+        "description": "Preview of a note (first 150 characters of a body)"
+      },
+      "creator": {
+        "$ref": "#/components/schemas/TMCreatorInfo"
+      },
+      "lastModifiedBy": {
+        "$ref": "#/components/schemas/LastModifiedByInfo"
+      },
+      "lockedBy": {
+        "$ref": "#/components/schemas/LockedByInfo"
+      },
+      "status": {
+        "type": "string",
+        "description": "Note publishing status. Any note is created in 'Draft' status. After it is posted it becomes 'Active'",
+        "enum": [
+          "Active",
+          "Draft"
+        ]
+      },
+      "creationTime": {
+        "type": "string",
+        "format": "date-time",
+        "description": "Creation time"
+      },
+      "lastModifiedTime": {
+        "type": "string",
+        "format": "date-time",
+        "description": "Datetime of the note last update"
+      },
+      "type": {
+        "type": "string",
+        "enum": [
+          "Note"
+        ]
+      },
+      "body": {
+        "type": "string",
+        "description": "Text of a note"
       }
-    ],
-    "name": "TMNoteWithBodyInfo"
+    }
   },
   {
     "required": [
@@ -30471,16 +30626,47 @@
     "name": "AllCalls"
   },
   {
-    "description": "This field specifies the dimensions by which the response should be grouped and specific keys to narrow the response. See also [Call Aggregate reports](https://developers.ringcentral.com/guide/analytics/aggregate) or [Call Timeline reports](https://developers.ringcentral.com/guide/analytics/timeline) pages in the developer guide for more information",
-    "oneOf": [
-      {
-        "$ref": "#/components/schemas/DirectGrouping"
-      },
-      {
-        "$ref": "#/components/schemas/GroupingByMembers"
-      }
+    "description": "This grouping allows to specify the `groupByMembers` option. The response data will be grouped by users and will only include users that belong to the scope selected in `groupByMembers` field",
+    "name": "Grouping",
+    "required": [
+      "groupBy",
+      "groupByMembers"
     ],
-    "name": "Grouping"
+    "type": "object",
+    "properties": {
+      "groupBy": {
+        "type": "string",
+        "description": "The selected grouping option",
+        "enum": [
+          "Company",
+          "CompanyNumbers",
+          "Users",
+          "Queues",
+          "IVRs",
+          "SharedLines",
+          "UserGroups",
+          "Sites",
+          "Departments"
+        ]
+      },
+      "keys": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "This field can be used to further limit the users selection by specifying unique identifiers of corresponding entities. For example, providing unique queue ids along with `Queue` in `groupByMembers` field will limit the response to users that are queue agents in at least one of these queues"
+      },
+      "groupByMembers": {
+        "type": "string",
+        "description": "The selected data scope",
+        "enum": [
+          "Department",
+          "UserGroup",
+          "Queue",
+          "Site"
+        ]
+      }
+    }
   },
   {
     "type": "object",
