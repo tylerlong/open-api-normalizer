@@ -35,5 +35,13 @@ Some models are not in the format we expect, so we need to adjust them.
 - fax: by default, the fax doesn't support multiple attachments and the parameter `to` is wrong.
 - greeting: something is wrong with account-level and extension-level greeting HTTP post body
 - merge-of: anyOf, oneOf, allOf, we merge them. Because most programming language doesn't have direct support for them.
+- miscellaneous
 
 Please refer to [./src/models/adjust/](./src/models/adjust/).
+
+
+#### Normalize
+
+This step is just data structure conversion, with no information change. We changed the properties object to an array of fields.
+
+Please refer to [./src/models/normalize.ts](./src/models/normalize.ts).

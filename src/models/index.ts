@@ -1,4 +1,5 @@
 import { collect } from './collect';
 import { adjust } from './adjust';
+import { normalize } from './normalize';
 
-export default adjust(collect());
+export default normalize(adjust(collect()));
