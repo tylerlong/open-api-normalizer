@@ -1,4 +1,5 @@
 import { isEqual, last } from 'lodash';
+
 import { Path } from '../types';
 
 export const getBridgePaths = (result: Path[]): Path[] => {
