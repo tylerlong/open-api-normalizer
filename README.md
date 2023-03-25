@@ -47,7 +47,6 @@ This step is just data structure conversion, with no information change. We chan
 Please refer to [./src/models/normalize.ts](./src/models/normalize.ts).
 
 
-
 ## Todo:
 
-collect, adjust and normalize path
+- notification encryption enum false only.
