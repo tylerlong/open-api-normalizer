@@ -7,6 +7,8 @@
     "test": "ts-node test/index.ts"
   },
   "dependencies": {
+    "js-yaml": "^4.1.0",
+    "lodash": "^4.17.21",
     "openapi-types": "^12.1.0"
   },
   "devDependencies": {

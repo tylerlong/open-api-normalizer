@@ -30,7 +30,7 @@ Please refer to [./src/models/collect/](./src/models/collect/).
 
 Some models are not in the format we expect, so we need to adjust them.
 
-- de-ref: we don't like models of types `string` and `string[]`. Because these are primitive types. So we inline them instead of `$ref` them. 
+- de-ref: we don't like models of types `string` and `string[]`. Because these are primitive types. So we inline them instead of `$ref` them.
 - ref: we don't like properties of type `object`, because they should be a new mode instead and we `$ref` them.
 - fax: by default, the fax doesn't support multiple attachments and the parameter `to` is wrong.
 - greeting: something is wrong with account-level and extension-level greeting HTTP post body
@@ -39,13 +39,11 @@ Some models are not in the format we expect, so we need to adjust them.
 
 Please refer to [./src/models/adjust/](./src/models/adjust/).
 
-
 #### Normalize
 
 This step is just data structure conversion, with no information change. We changed the properties object to an array of fields.
 
 Please refer to [./src/models/normalize.ts](./src/models/normalize.ts).
-
 
 ## Todo:
 
