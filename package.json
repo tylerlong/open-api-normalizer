@@ -4,7 +4,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "lint": "eslint --fix '**/*.{ts,tsx,js,jsx}' && prettier --write . && sort-package-json",
-    "test": "ts-node test/index.ts"
+    "test": "jest -c ./test/jest.config.ts"
   },
   "dependencies": {
     "js-yaml": "^4.1.0",
@@ -12,19 +12,23 @@
     "openapi-types": "^12.1.0"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.0",
     "@types/js-yaml": "^4.0.5",
     "@types/lodash": "^4.14.191",
-    "@types/node": "^18.15.5",
-    "@typescript-eslint/eslint-plugin": "^5.56.0",
-    "@typescript-eslint/parser": "^5.56.0",
+    "@types/node": "^18.15.10",
+    "@typescript-eslint/eslint-plugin": "^5.57.0",
+    "@typescript-eslint/parser": "^5.57.0",
+    "dotenv-override-true": "^6.2.2",
     "eslint": "^8.36.0",
     "eslint-config-alloy": "^4.9.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "prettier": "^2.8.6",
+    "jest": "^29.5.0",
+    "prettier": "^2.8.7",
     "sort-package-json": "^2.4.1",
+    "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1",
-    "ttpt": "^0.4.7",
+    "ttpt": "^0.5.1",
     "typescript": "^5.0.2",
     "yarn-upgrade-all": "^0.7.2"
   }

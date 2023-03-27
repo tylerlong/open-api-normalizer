@@ -39,7 +39,7 @@ export const collectQueryParams = (doc: OpenAPIV3.Document, operations: RawOpera
         }),
       ),
     };
-    schemas.push(schema as NamedSchema);
+    schemas.push(schema as unknown as NamedSchema);
   }
   return schemas;
 };
