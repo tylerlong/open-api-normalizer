@@ -1,16 +1,10 @@
-import { writeFileSync } from 'fs';
+import { prepareModels } from './models';
+import { preparePaths } from './paths';
+import { getRawData } from './raw-data';
 
-import models from './models';
-import paths from './paths';
-
-writeFileSync(
-  'parsed.json',
-  JSON.stringify(
-    {
-      models,
-      paths,
-    },
-    null,
-    2,
-  ),
-);
+export const prepareSpec = (filePath: string) => {
+  const { doc, operations } = getRawData(filePath);
+  const models = prepareModels(doc, operations);
+  const paths = preparePaths(doc);
+  return { models, paths };
+};

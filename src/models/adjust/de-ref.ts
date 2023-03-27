@@ -1,4 +1,5 @@
-import { doc } from '../../raw-data';
+import { OpenAPIV3 } from 'openapi-types';
+
 import { NamedSchema } from '../../types';
 
 const shouldBeInline = (schema: NamedSchema): boolean => {
@@ -18,7 +19,7 @@ const shouldBeInline = (schema: NamedSchema): boolean => {
  * @param schemas schemas to be processced
  * @returns processed schemas
  */
-export const deRef = (schemas: NamedSchema[]): NamedSchema[] => {
+export const deRef = (schemas: NamedSchema[], doc: OpenAPIV3.Document): NamedSchema[] => {
   for (const schema of schemas) {
     // replace pure $ref with the actual schema
     if ('$ref' in schema) {

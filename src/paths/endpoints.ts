@@ -1,11 +1,10 @@
 import { isEqual, last, remove, isEmpty } from 'lodash';
 import { OpenAPIV3 } from 'openapi-types';
 
-import { doc } from '../raw-data';
 import { Path, ResponseSchema } from '../types';
 import { lowerCaseFirstLetter } from '../utils';
 
-export const getEndpointPaths = () => {
+export const getEndpointPaths = (doc: OpenAPIV3.Document) => {
   const entries = Object.entries(doc.paths).sort((item1, item2) => (item1[0].length > item2[0].length ? 1 : -1));
 
   const result: Path[] = [];

@@ -1,8 +1,9 @@
-import { doc, operations } from '../../raw-data';
-import { NamedSchema } from '../../types';
+import { OpenAPIV3 } from 'openapi-types';
+
+import { NamedSchema, RawOperation } from '../../types';
 import { capitalizeFirstLetter } from '../../utils';
 
-export const collectQueryParams = () => {
+export const collectQueryParams = (doc: OpenAPIV3.Document, operations: RawOperation[]) => {
   const schemas: NamedSchema[] = [];
   for (const operation of operations) {
     if (!operation.parameters) {
